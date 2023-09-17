@@ -64,7 +64,13 @@ help(h2o.automl)
 ```{r}
 # Task 5: H2O AutoML Training
 
-
+aml<- h2o.automl(
+  x=x,
+  y=y,
+  training_frame = train,
+  max_runtime_secs = 600, #max_model=20
+  balance_classes = TRUE #exclude_algos, sort_metric=logloss"
+)
 
 
 
@@ -74,6 +80,9 @@ help(h2o.automl)
 ```{r}
 # Task 6: View AutoML Leaderboard
 
+lb<-aml@leaderboard
+print(lb, n=nrow(lb))
+
 
 
 ```
@@ -81,14 +90,22 @@ help(h2o.automl)
 ```{r}
 # 6.1 Ensemble Exploration ----
 
+model_ids <-as.data.frame(aml@leaderboard$model_id)[,1]
+se<-h2o.getModel(grep("StackedEnsemble_BestOfFamily_4", model_ids, value = TRUE)[1])
 
-
+metalearner<-h2o.getModel(se@model$metalearner$name)
+h2o.varimp(metalearner)
+h2o.varimp_plot(metalearner)
 
 ```
 
 ```{r}
 # Task 7: Baselearner Variable Importance 
 
+gbm <-h2o.getModel(grep("GBM", model_ids, value = TRUE)[1])
+h2o.varimp(gbm)
+
+h2o.varimp_plot(gbm)
 
 
 
