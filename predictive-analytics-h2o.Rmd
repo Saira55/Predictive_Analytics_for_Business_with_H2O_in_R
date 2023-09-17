@@ -1,0 +1,97 @@
+```{r}
+# Task 2: Import Libraries
+install.packages("h2o")
+install.packages("readxl")
+
+library(tidyverse)
+library(readxl)
+library(h2o)
+Sys.setenv(JAVA_HOME="C:/Program Files/Java/jdk-17")   # after downloadin latest java, I set the path. 
+```
+
+```{r}
+# Task 3: Read the Excel Sheets
+path <-"C:/Users/Uzma/Documents/R/Predictive/UCI_bank_marketing.xlsx"
+sheets <- excel_sheets(path)
+
+```
+
+
+```{r}
+# Task 3.1: Explore Data in each Sheet
+
+sheets %>%
+  map(~ read_excel(path= path, sheet= .)) %>%
+  set_names(sheets)
+
+```
+
+
+```{r}
+# Task 3.2: Join Data by ID Column (VLOOKUP Equivalent)
+data_joined<- sheets[4:7] %>%
+  map(~read_excel(path=path, sheet=.)) %>%
+  reduce(left_join)
+
+table(data_joined$TERM_DEPOSIT)
+
+
+```
+
+```{r}
+# Task 4: Start H2O Cluster
+
+h2o.init(max_mem_size = "4g")
+```
+
+```{r}
+# Task 4.1: Data Preparation
+
+data_joined <- data_joined %>%
+  mutate_if(is.character, as.factor)
+
+train <-as.h2o(data_joined)
+data_joined
+
+h2o.describe(train)
+
+y <- "TERM_DEPOSIT"  #train[,y] <- as.factor(train[,y])
+x <- setdiff(names(train), c(y, "ID"))
+
+help(h2o.automl)
+```
+
+```{r}
+# Task 5: H2O AutoML Training
+
+
+
+
+
+
+```
+
+```{r}
+# Task 6: View AutoML Leaderboard
+
+
+
+```
+
+```{r}
+# 6.1 Ensemble Exploration ----
+
+
+
+
+```
+
+```{r}
+# Task 7: Baselearner Variable Importance 
+
+
+
+
+```
+
+
