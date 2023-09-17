@@ -1,0 +1,79 @@
+``{r}
+# Task 2: Import Libraries
+install.packages("h2o")
+library(tidyverse)
+library(readxl)
+library(h2o)
+h2o.init()
+```
+
+```{r}
+# Task 3: Read the Excel Sheets
+path <-"UCI_bank_marketing.xlsx"
+
+``
+
+
+```{r}
+# Task 3.1: Explore Data in each Sheet
+
+
+``
+
+
+```{r}
+# Task 3.2: Join Data by ID Column (VLOOKUP Equivalent)
+
+
+``
+
+```{r}
+# Task 4: Start H2O Cluster
+
+
+``
+
+```{r}
+# Task 4.1: Data Preparation
+
+
+
+
+``
+
+```{r}
+# Task 5: H2O AutoML Training
+
+
+
+
+
+
+``
+
+```{r}
+# Task 6: View AutoML Leaderboard
+
+
+
+``
+
+```{r}
+# 6.1 Ensemble Exploration ----
+
+
+
+
+``
+
+```{r}
+# Task 7: Baselearner Variable Importance 
+
+
+
+
+``
+
+
+
+
